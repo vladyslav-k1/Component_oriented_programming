@@ -4,7 +4,7 @@ function getTrendClass(change) {
   return '';
 }
 
-function KpiCard({ title, value, unit, change }) {
+function KpiCard({ title, value, unit, change, changeLabel }) {
   return (
     <article className="kpi-card">
       <h3 className="kpi-card__title">{title}</h3>
@@ -12,7 +12,9 @@ function KpiCard({ title, value, unit, change }) {
         {value}
         {unit && <span className="kpi-card__unit"> {unit}</span>}
       </p>
-      <p className={`kpi-card__change ${getTrendClass(change)}`}>{change} за добу</p>
+      <p className={`kpi-card__change ${getTrendClass(change)}`}>
+        {change} {changeLabel}
+      </p>
     </article>
   );
 }
