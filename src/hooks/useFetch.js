@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const INITIAL_RESULT = { key: null, data: null, error: null };
+const INITIAL_RESULT = { key: null, data: null, error: null, errorStatus: null };
 
 export function useFetch(url) {
   const [result, setResult] = useState(INITIAL_RESULT);
@@ -16,14 +16,21 @@ export function useFetch(url) {
     fetch(url, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Сервер відповів зі статусом ${response.status}`);
+          const httpError = new Error(`Сервер відповів зі статусом ${response.status}`);
+          httpError.status = response.status;
+          throw httpError;
         }
         return response.json();
       })
-      .then((data) => setResult({ key: requestKey, data, error: null }))
+      .then((data) => setResult({ key: requestKey, data, error: null, errorStatus: null }))
       .catch((err) => {
         if (err.name === 'AbortError') return;
-        setResult({ key: requestKey, data: null, error: err.message });
+        setResult({
+          key: requestKey,
+          data: null,
+          error: err.message,
+          errorStatus: err.status ?? null,
+        });
       });
 
     return () => controller.abort();
@@ -35,6 +42,7 @@ export function useFetch(url) {
     data: isCurrent ? result.data : null,
     loading: requestKey !== null && !isCurrent,
     error: isCurrent ? result.error : null,
+    errorStatus: isCurrent ? result.errorStatus : null,
     refetch: () => setReloadToken((token) => token + 1),
   };
 }

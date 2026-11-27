@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import Toggle from '../ui/Toggle';
+import { ROUTES } from '../../routes';
 import { formatDateTime, kmToMiles } from '../../utils/earthquakeUtils';
 
 function EarthquakeDetails({ event }) {
@@ -38,6 +40,10 @@ function EarthquakeDetails({ event }) {
       </dl>
 
       {tsunami === 1 && <p className="details__warning">⚠ Можлива загроза цунамі</p>}
+
+      <Link to={ROUTES.earthquake(event.id)} className="details__more">
+        Відкрити сторінку події →
+      </Link>
 
       <a href={url} target="_blank" rel="noreferrer">Сторінка події на USGS</a>
     </div>

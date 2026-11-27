@@ -56,7 +56,11 @@ function EarthquakeTable({ events, sortConfig, onSortChange, selectedId, onSelec
               <tr
                 key={event.id}
                 className={event.id === selectedId ? 'eq-table__row--selected' : ''}
+                tabIndex={0}
                 onClick={() => onSelect(event.id)}
+                onKeyDown={(keyboardEvent) => {
+                  if (keyboardEvent.key === 'Enter') onSelect(event.id);
+                }}
               >
                 <td>{formatDateTime(time)}</td>
                 <td>

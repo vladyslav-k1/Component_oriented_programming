@@ -22,3 +22,18 @@ export function parseEarthquakesResponse(data) {
     generatedAt: data.metadata.generated,
   };
 }
+
+const EVENT_ID_PATTERN = /^[a-z0-9_-]{4,40}$/i;
+
+export function isValidEventId(id) {
+  return typeof id === 'string' && EVENT_ID_PATTERN.test(id);
+}
+
+export function buildEarthquakeDetailsUrl(id) {
+  const params = new URLSearchParams({
+    format: 'geojson',
+    eventid: id,
+    nodata: '404',
+  });
+  return `${USGS_QUERY_URL}?${params}`;
+}

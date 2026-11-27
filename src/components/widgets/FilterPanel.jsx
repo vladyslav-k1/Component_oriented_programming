@@ -1,9 +1,12 @@
 import { Controller } from 'react-hook-form';
 import TextField from '../form/TextField';
 import SelectField from '../form/SelectField';
+import { useFilters } from '../../hooks/useFilters';
 import { LIMIT_OPTIONS, PERIOD_OPTIONS, validateMinMagnitude } from '../../utils/filters';
 
-function FilterPanel({ control, errors, isDirty, isPending, onReset }) {
+function FilterPanel() {
+  const { control, errors, isDirty, isPending, resetFilters } = useFilters();
+
   return (
     <form className="filter-panel" noValidate onSubmit={(event) => event.preventDefault()}>
       <Controller
@@ -68,7 +71,12 @@ function FilterPanel({ control, errors, isDirty, isPending, onReset }) {
       />
 
       <div className="filter-panel__actions">
-        <button type="button" className="button--secondary" onClick={onReset} disabled={!isDirty}>
+        <button
+          type="button"
+          className="button--secondary"
+          onClick={resetFilters}
+          disabled={!isDirty}
+        >
           Скинути фільтри
         </button>
         {isPending && <span className="filter-panel__pending">Застосування фільтрів…</span>}
