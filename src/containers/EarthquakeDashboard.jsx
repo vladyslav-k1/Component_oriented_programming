@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
-import { useEarthquakeFilters } from '../hooks/useEarthquakeFilters';
+import { useNavigate } from 'react-router';
+import { useFilters } from '../hooks/useFilters';
 import { useEarthquakes } from '../hooks/useEarthquakes';
+import { ROUTES } from '../routes';
 import { buildKpis, formatDateTime } from '../utils/earthquakeUtils';
 import { sortEvents, getNextSortConfig } from '../utils/sorting';
 import { filterBySearch } from '../utils/filters';
@@ -17,10 +19,13 @@ import EarthquakeDetails from '../components/widgets/EarthquakeDetails';
 const DEFAULT_SORT = { key: 'time', direction: 'desc' };
 
 function EarthquakeDashboard() {
-  const filters = useEarthquakeFilters();
+  const filters = useFilters();
+  const navigate = useNavigate();
   const { events: loadedEvents, generatedAt, loading, error, refetch } = useEarthquakes(
     filters.requestUrl,
   );
+
+  const handleOpenEvent = (id) => navigate(ROUTES.earthquake(id));
 
   const [sortConfig, setSortConfig] = useState(DEFAULT_SORT);
   const [selectedId, setSelectedId] = useState(null);
@@ -55,13 +60,7 @@ function EarthquakeDashboard() {
     <DashboardLayout title="Землетруси" subtitle={subtitle}>
       <div className="filters-section">
         <Widget title="Фільтри">
-          <FilterPanel
-            control={filters.control}
-            errors={filters.errors}
-            isDirty={filters.isDirty}
-            isPending={filters.isPending}
-            onReset={filters.resetFilters}
-          />
+          <FilterPanel />
         </Widget>
       </div>
 
@@ -92,7 +91,7 @@ function EarthquakeDashboard() {
               sortConfig={sortConfig}
               onSortChange={handleSortChange}
               selectedId={activeId}
-              onSelect={setSelectedId}
+              onSelect={handleOpenEvent}
             />
           </Widget>
         </div>
