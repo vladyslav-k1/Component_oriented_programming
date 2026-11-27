@@ -5,6 +5,7 @@ import DashboardLayout from '../components/layout/DashboardLayout';
 import RequestState from '../components/ui/RequestState';
 import NotFoundMessage from '../components/ui/NotFoundMessage';
 import EarthquakeFullDetails from '../components/widgets/EarthquakeFullDetails';
+import FavoriteButton from '../components/widgets/FavoriteButton';
 
 function EarthquakePage() {
   const { id } = useParams();
@@ -35,6 +36,9 @@ function EarthquakePage() {
         emptyMessage="Дані про подію відсутні."
         onRetry={refetch}
       >
+        <div className="page-actions">
+          <FavoriteButton event={event} showLabel />
+        </div>
         <EarthquakeFullDetails event={event} />
       </RequestState>
     </DashboardLayout>

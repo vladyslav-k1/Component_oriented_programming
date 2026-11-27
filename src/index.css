@@ -551,3 +551,129 @@ a {
   outline: 2px solid var(--color-primary);
   outline-offset: -2px;
 }
+
+/* ---------- Chart ---------- */
+.chart-section {
+  margin-bottom: 16px;
+}
+
+.chart-widget__controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.data-chart {
+  width: 100%;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.segmented__option {
+  padding: 6px 12px;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.9rem;
+}
+
+.segmented__option:last-child {
+  border-right: none;
+}
+
+.segmented__option--active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Favorites ---------- */
+.star-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+.star-button--active {
+  color: #f59e0b;
+}
+
+.star-button__label {
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.page-actions .star-button {
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.eq-table__favorite {
+  width: 40px;
+  text-align: center;
+}
+
+.favorites__list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.favorites__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.favorites__link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.favorites__link:hover strong {
+  color: var(--color-primary);
+}
+
+.favorites__time {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.favorites__remove {
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+}
+
+.favorites__remove:hover {
+  color: var(--color-danger);
+}
+
+.widgets-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
