@@ -1,0 +1,245 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ---------- Layout ---------- */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.dashboard__header h1 {
+  margin: 0;
+}
+
+.dashboard__subtitle {
+  margin: 4px 0 24px;
+  color: #6b7280;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.widget {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.widget__title {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.placeholder {
+  color: #6b7280;
+}
+
+.button--secondary {
+  background: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 4px 12px;
+}
+
+/* ---------- KPI ---------- */
+.kpi-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.kpi-card__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.kpi-card__value {
+  margin: 8px 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.kpi-card__unit {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.kpi-card__change {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.kpi-card__change--up {
+  color: #dc2626; /* більше землетрусів — погано */
+}
+
+.kpi-card__change--down {
+  color: #16a34a;
+}
+
+/* ---------- Counter ---------- */
+.counter__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.counter__controls button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 1.2rem;
+}
+
+.counter__value {
+  min-width: 90px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* ---------- Toggle ---------- */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #6b7280;
+}
+
+.toggle__label--active {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.toggle__switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border: none;
+  border-radius: 12px;
+  background: #d1d5db;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.toggle__switch--on {
+  background: #2563eb;
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+.toggle__switch--on .toggle__thumb {
+  transform: translateX(20px);
+}
+
+/* ---------- Details ---------- */
+.details__list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 0 0 12px;
+}
+
+.details__list dt {
+  color: #6b7280;
+}
+
+.details__list dd {
+  margin: 0;
+}
+
+.details__warning {
+  color: #b45309;
+  font-weight: 600;
+}
+
+/* ---------- Event list ---------- */
+.event-list__filter {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.event-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.event-list__item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 2px 8px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #f3f4f6;
+  background: none;
+  text-align: left;
+}
+
+.event-list__item:hover {
+  background: #f9fafb;
+}
+
+.event-list__item--selected {
+  background: #eff6ff;
+}
+
+.event-list__mag {
+  grid-row: span 2;
+  font-weight: 700;
+}
+
+.event-list__time {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
