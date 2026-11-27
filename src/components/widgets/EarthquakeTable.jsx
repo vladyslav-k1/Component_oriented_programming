@@ -1,6 +1,8 @@
 import { formatDateTime, getMagnitudeCategory } from '../../utils/earthquakeUtils';
+import FavoriteButton from './FavoriteButton';
 
 const COLUMNS = [
+  { key: 'favorite', label: '★', sortable: false },
   { key: 'time', label: 'Час', sortable: true },
   { key: 'mag', label: 'Магнітуда', sortable: true },
   { key: 'place', label: 'Регіон', sortable: true },
@@ -59,9 +61,14 @@ function EarthquakeTable({ events, sortConfig, onSortChange, selectedId, onSelec
                 tabIndex={0}
                 onClick={() => onSelect(event.id)}
                 onKeyDown={(keyboardEvent) => {
-                  if (keyboardEvent.key === 'Enter') onSelect(event.id);
+                  if (keyboardEvent.key === 'Enter' && keyboardEvent.target === keyboardEvent.currentTarget) {
+                    onSelect(event.id);
+                  }
                 }}
               >
+                <td className="eq-table__favorite">
+                  <FavoriteButton event={event} />
+                </td>
                 <td>{formatDateTime(time)}</td>
                 <td>
                   <span className={`mag-badge mag-badge--${getMagnitudeCategory(mag)}`}>

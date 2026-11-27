@@ -1,8 +1,11 @@
 import { NavLink, Outlet } from 'react-router';
 import ThemeToggle from '../ui/ThemeToggle';
 import { ROUTES } from '../../routes';
+import { useDocumentTheme } from '../../hooks/useDocumentTheme';
 
 function AppLayout() {
+  useDocumentTheme();
+
   return (
     <div className="app-shell">
       <header className="app-header">

@@ -1,80 +1,66 @@
-import { Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../form/TextField';
 import SelectField from '../form/SelectField';
-import { useFilters } from '../../hooks/useFilters';
-import { LIMIT_OPTIONS, PERIOD_OPTIONS, validateMinMagnitude } from '../../utils/filters';
+import { LIMIT_OPTIONS, PERIOD_OPTIONS } from '../../utils/filters';
+import {
+  filterChanged,
+  filtersReset,
+  selectAreFiltersDirty,
+  selectFilters,
+  selectMinMagnitudeError,
+} from '../../store/slices/filtersSlice';
 
-function FilterPanel() {
-  const { control, errors, isDirty, isPending, resetFilters } = useFilters();
+function FilterPanel({ isPending }) {
+  const dispatch = useDispatch();
+  const filters = useSelector(selectFilters);
+  const minMagnitudeError = useSelector(selectMinMagnitudeError);
+  const isDirty = useSelector(selectAreFiltersDirty);
+
+  const handleChange = (field) => (value) => dispatch(filterChanged({ field, value }));
 
   return (
     <form className="filter-panel" noValidate onSubmit={(event) => event.preventDefault()}>
-      <Controller
-        name="search"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            id="filter-search"
-            label="Пошук за регіоном"
-            placeholder="напр. Alaska"
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
+      <TextField
+        id="filter-search"
+        label="Пошук за регіоном"
+        placeholder="напр. Alaska"
+        value={filters.search}
+        onChange={handleChange('search')}
       />
 
-      <Controller
-        name="minMagnitude"
-        control={control}
-        rules={{ validate: validateMinMagnitude }}
-        render={({ field }) => (
-          <TextField
-            id="filter-min-magnitude"
-            label="Мін. магнітуда"
-            type="number"
-            min="0"
-            max="10"
-            step="0.1"
-            value={field.value}
-            onChange={field.onChange}
-            error={errors.minMagnitude?.message}
-          />
-        )}
+      <TextField
+        id="filter-min-magnitude"
+        label="Мін. магнітуда"
+        type="number"
+        min="0"
+        max="10"
+        step="0.1"
+        value={filters.minMagnitude}
+        onChange={handleChange('minMagnitude')}
+        error={minMagnitudeError}
       />
 
-      <Controller
-        name="period"
-        control={control}
-        render={({ field }) => (
-          <SelectField
-            id="filter-period"
-            label="Період"
-            options={PERIOD_OPTIONS}
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
+      <SelectField
+        id="filter-period"
+        label="Період"
+        options={PERIOD_OPTIONS}
+        value={filters.period}
+        onChange={handleChange('period')}
       />
 
-      <Controller
-        name="limit"
-        control={control}
-        render={({ field }) => (
-          <SelectField
-            id="filter-limit"
-            label="Ліміт записів"
-            options={LIMIT_OPTIONS}
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
+      <SelectField
+        id="filter-limit"
+        label="Ліміт записів"
+        options={LIMIT_OPTIONS}
+        value={filters.limit}
+        onChange={handleChange('limit')}
       />
 
       <div className="filter-panel__actions">
         <button
           type="button"
           className="button--secondary"
-          onClick={resetFilters}
+          onClick={() => dispatch(filtersReset())}
           disabled={!isDirty}
         >
           Скинути фільтри
