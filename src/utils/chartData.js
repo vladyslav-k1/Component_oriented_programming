@@ -12,11 +12,6 @@ export const CHART_METRICS = [
   { value: 'time', label: 'За часом' },
 ];
 
-export const CHART_COLORS = {
-  light: { primary: '#2563eb', grid: '#e5e7eb', text: '#6b7280', tooltipBg: '#ffffff' },
-  dark: { primary: '#60a5fa', grid: '#334155', text: '#94a3b8', tooltipBg: '#1e293b' },
-};
-
 export function buildMagnitudeDistribution(events) {
   if (events.length === 0) return [];
 

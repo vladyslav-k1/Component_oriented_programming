@@ -1,21 +1,23 @@
 import { NavLink, Outlet } from 'react-router';
+import { AppShell, TextLink } from '../../design-system';
 import ThemeToggle from '../ui/ThemeToggle';
-import { ROUTES } from '../../routes';
 import { useDocumentTheme } from '../../hooks/useDocumentTheme';
+import { ROUTES } from '../../routes';
 
 function AppLayout() {
   useDocumentTheme();
 
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <NavLink to={ROUTES.home} end className="app-header__brand">
+    <AppShell
+      brand={
+        <TextLink as={NavLink} to={ROUTES.home} end tone="default" weight="bold">
           Seismo Dashboard
-        </NavLink>
-        <ThemeToggle />
-      </header>
+        </TextLink>
+      }
+      actions={<ThemeToggle />}
+    >
       <Outlet />
-    </div>
+    </AppShell>
   );
 }
 

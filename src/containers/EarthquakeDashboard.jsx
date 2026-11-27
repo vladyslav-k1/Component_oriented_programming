@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useEarthquakeQuery } from '../hooks/useEarthquakeQuery';
 import { useEarthquakes } from '../hooks/useEarthquakes';
@@ -6,11 +7,11 @@ import { ROUTES } from '../routes';
 import { buildKpis, formatDateTime } from '../utils/earthquakeUtils';
 import { sortEvents, getNextSortConfig } from '../utils/sorting';
 import { filterBySearch } from '../utils/filters';
-import DashboardLayout from '../components/layout/DashboardLayout';
-import Widget from '../components/layout/Widget';
+import { getDeltaTone } from '../utils/presentation';
+import { selectFavoritesCount } from '../store/slices/favoritesSlice';
+import { Card, Grid, PageHeader, Stack, StatCard } from '../design-system';
 import RequestState from '../components/ui/RequestState';
 import FilterPanel from '../components/widgets/FilterPanel';
-import KpiCard from '../components/widgets/KpiCard';
 import EarthquakeChartWidget from '../components/widgets/EarthquakeChartWidget';
 import EarthquakeTable from '../components/widgets/EarthquakeTable';
 import MagnitudeCounter from '../components/widgets/MagnitudeCounter';
@@ -23,6 +24,7 @@ const DEFAULT_SORT = { key: 'time', direction: 'desc' };
 function EarthquakeDashboard() {
   const query = useEarthquakeQuery();
   const navigate = useNavigate();
+  const favoritesCount = useSelector(selectFavoritesCount);
   const { events: loadedEvents, generatedAt, loading, error, refetch } = useEarthquakes(
     query.requestUrl,
   );
@@ -67,12 +69,12 @@ function EarthquakeDashboard() {
     : 'Дані USGS';
 
   return (
-    <DashboardLayout title="Землетруси" subtitle={subtitle}>
-      <div className="filters-section">
-        <Widget title="Фільтри">
-          <FilterPanel isPending={query.isPending} />
-        </Widget>
-      </div>
+    <Stack gap="5">
+      <PageHeader title="Землетруси" subtitle={subtitle} />
+
+      <Card title="Фільтри">
+        <FilterPanel isPending={query.isPending} />
+      </Card>
 
       <RequestState
         loading={loading}
@@ -81,27 +83,26 @@ function EarthquakeDashboard() {
         emptyMessage="За обраними фільтрами землетрусів не знайдено. Змініть або скиньте фільтри."
         onRetry={refetch}
       >
-        <div className="kpi-row">
-          {kpis.map((kpi) => (
-            <KpiCard
-              key={kpi.id}
-              title={kpi.title}
-              value={kpi.value}
-              unit={kpi.unit}
-              change={kpi.change}
-              changeLabel={kpi.changeLabel}
-            />
-          ))}
-        </div>
+        <Stack gap="5">
+          <Grid minItemWidth="sm" gap="4">
+            {kpis.map((kpi) => (
+              <StatCard
+                key={kpi.id}
+                label={kpi.title}
+                value={kpi.value}
+                unit={kpi.unit}
+                delta={kpi.change}
+                deltaLabel={kpi.changeLabel}
+                deltaTone={getDeltaTone(kpi.change)}
+              />
+            ))}
+          </Grid>
 
-        <div className="chart-section">
-          <Widget title="Аналітика вибірки">
+          <Card title="Аналітика вибірки">
             <EarthquakeChartWidget events={events} timeRange={timeRange} />
-          </Widget>
-        </div>
+          </Card>
 
-        <div className="table-section">
-          <Widget title={`Події у вибірці (${events.length})`}>
+          <Card title={`Події у вибірці (${events.length})`}>
             <EarthquakeTable
               events={sortedEvents}
               sortConfig={sortConfig}
@@ -109,30 +110,27 @@ function EarthquakeDashboard() {
               selectedId={activeId}
               onSelect={handleOpenEvent}
             />
-          </Widget>
-        </div>
+          </Card>
 
-        <div className="widgets-grid">
-          <div className="widgets-column">
-            <Widget title="Поріг магнітуди">
-              <MagnitudeCounter events={events} />
-            </Widget>
-
-            <Widget title="Обране">
-              <FavoritesWidget />
-            </Widget>
-          </div>
-
-          <Widget title="Події за категорією">
-            <EarthquakeList events={events} selectedId={activeId} onSelect={setSelectedId} />
-          </Widget>
-
-          <Widget title="Деталі події">
-            <EarthquakeDetails event={selectedEvent} />
-          </Widget>
-        </div>
+          <Grid minItemWidth="md" gap="4" align="start">
+            <Stack gap="4">
+              <Card title="Поріг магнітуди">
+                <MagnitudeCounter events={events} />
+              </Card>
+              <Card title={`Обране (${favoritesCount})`}>
+                <FavoritesWidget />
+              </Card>
+            </Stack>
+            <Card title="Події за категорією">
+              <EarthquakeList events={events} selectedId={activeId} onSelect={setSelectedId} />
+            </Card>
+            <Card title="Деталі події">
+              <EarthquakeDetails event={selectedEvent} />
+            </Card>
+          </Grid>
+        </Stack>
       </RequestState>
-    </DashboardLayout>
+    </Stack>
   );
 }
 

@@ -1,0 +1,10 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.height-sm { max-height: var(--ds-scroll-height-sm); }
+.height-md { max-height: var(--ds-scroll-height-md); }
+.height-lg { max-height: var(--ds-scroll-height-lg); }

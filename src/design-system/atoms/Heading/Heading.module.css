@@ -1,0 +1,13 @@
+.heading {
+  margin: 0;
+  color: var(--ds-color-text);
+  font-weight: var(--ds-font-weight-bold);
+  line-height: var(--ds-line-height-tight);
+}
+
+.size-sm { font-size: var(--ds-font-size-sm); }
+.size-md { font-size: var(--ds-font-size-md); }
+.size-lg { font-size: var(--ds-font-size-lg); }
+.size-xl { font-size: var(--ds-font-size-xl); }
+.size-2xl { font-size: var(--ds-font-size-2xl); }
+.size-3xl { font-size: var(--ds-font-size-3xl); }

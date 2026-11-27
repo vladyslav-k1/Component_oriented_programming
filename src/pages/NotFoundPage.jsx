@@ -1,11 +1,12 @@
-import DashboardLayout from '../components/layout/DashboardLayout';
+import { PageHeader, Stack } from '../design-system';
 import NotFoundMessage from '../components/ui/NotFoundMessage';
 
 function NotFoundPage() {
   return (
-    <DashboardLayout title="Сторінку не знайдено">
+    <Stack gap="5">
+      <PageHeader title="Сторінку не знайдено" />
       <NotFoundMessage message="Такої сторінки не існує." />
-    </DashboardLayout>
+    </Stack>
   );
 }
 

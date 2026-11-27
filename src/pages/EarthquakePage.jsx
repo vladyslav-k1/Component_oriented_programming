@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router';
 import { useEarthquake } from '../hooks/useEarthquake';
 import { ROUTES } from '../routes';
-import DashboardLayout from '../components/layout/DashboardLayout';
+import { PageHeader, Stack, TextLink } from '../design-system';
 import RequestState from '../components/ui/RequestState';
 import NotFoundMessage from '../components/ui/NotFoundMessage';
 import EarthquakeFullDetails from '../components/widgets/EarthquakeFullDetails';
@@ -13,9 +13,10 @@ function EarthquakePage() {
 
   if (notFound) {
     return (
-      <DashboardLayout title="Подію не знайдено">
+      <Stack gap="5">
+        <PageHeader title="Подію не знайдено" />
         <NotFoundMessage message={`Землетрусу з ідентифікатором «${id}» не існує.`} />
-      </DashboardLayout>
+      </Stack>
     );
   }
 
@@ -24,11 +25,15 @@ function EarthquakePage() {
     : 'Деталі події';
 
   return (
-    <DashboardLayout title={title} subtitle={`ID події: ${id}`}>
-      <Link to={ROUTES.home} className="back-link">
-        ← Назад до дашборду
-      </Link>
-
+    <Stack gap="5">
+      <PageHeader
+        title={title}
+        subtitle={`ID події: ${id}`}
+        actions={event && <FavoriteButton event={event} showLabel />}
+      />
+      <Stack align="start">
+        <TextLink as={Link} to={ROUTES.home}>← Назад до дашборду</TextLink>
+      </Stack>
       <RequestState
         loading={loading}
         error={error}
@@ -36,12 +41,9 @@ function EarthquakePage() {
         emptyMessage="Дані про подію відсутні."
         onRetry={refetch}
       >
-        <div className="page-actions">
-          <FavoriteButton event={event} showLabel />
-        </div>
         <EarthquakeFullDetails event={event} />
       </RequestState>
-    </DashboardLayout>
+    </Stack>
   );
 }
 

@@ -1,0 +1,20 @@
+.list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--ds-space-2) var(--ds-space-4);
+  margin: 0;
+}
+
+.row {
+  display: contents;
+}
+
+.term {
+  color: var(--ds-color-text-muted);
+}
+
+.description {
+  margin: 0;
+  color: var(--ds-color-text);
+  overflow-wrap: anywhere;
+}

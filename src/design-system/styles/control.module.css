@@ -1,0 +1,39 @@
+.control {
+  width: 100%;
+  padding: 0 var(--ds-space-3);
+  border: var(--ds-border-width) solid var(--ds-color-border);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+  font: inherit;
+  transition: border-color var(--ds-duration-fast);
+}
+
+.control:focus {
+  outline: var(--ds-focus-ring-width) solid var(--ds-color-focus-ring);
+  border-color: var(--ds-color-primary);
+}
+
+.control:disabled {
+  cursor: not-allowed;
+  opacity: var(--ds-opacity-disabled);
+}
+
+.sm {
+  min-height: var(--ds-control-height-sm);
+  font-size: var(--ds-font-size-sm);
+}
+
+.md {
+  min-height: var(--ds-control-height-md);
+  font-size: var(--ds-font-size-md);
+}
+
+.lg {
+  min-height: var(--ds-control-height-lg);
+  font-size: var(--ds-font-size-lg);
+}
+
+.invalid {
+  border-color: var(--ds-color-danger);
+}

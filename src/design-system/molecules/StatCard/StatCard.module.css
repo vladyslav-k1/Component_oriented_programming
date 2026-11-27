@@ -1,0 +1,14 @@
+.value {
+  margin: var(--ds-space-2) 0;
+  color: var(--ds-color-text);
+  font-size: var(--ds-font-size-2xl);
+  font-weight: var(--ds-font-weight-bold);
+  line-height: var(--ds-line-height-tight);
+}
+
+.unit {
+  margin-left: var(--ds-space-1);
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-md);
+  font-weight: var(--ds-font-weight-regular);
+}

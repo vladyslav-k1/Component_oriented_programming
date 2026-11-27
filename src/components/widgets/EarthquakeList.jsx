@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FormField, List, ListItem, Select, Stack, Text } from '../../design-system';
 import { MAGNITUDE_CATEGORIES, getMagnitudeCategory, formatDateTime } from '../../utils/earthquakeUtils';
 
 function EarthquakeList({ events, selectedId, onSelect }) {
@@ -10,38 +11,34 @@ function EarthquakeList({ events, selectedId, onSelect }) {
       : events.filter((event) => getMagnitudeCategory(event.properties.mag) === category);
 
   return (
-    <div className="event-list">
-      <label className="event-list__filter">
-        Категорія:{' '}
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {MAGNITUDE_CATEGORIES.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </label>
+    <Stack gap="3">
+      <FormField label="Категорія" htmlFor="event-category">
+        <Select
+          id="event-category"
+          size="sm"
+          options={MAGNITUDE_CATEGORIES}
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+        />
+      </FormField>
 
       {filteredEvents.length === 0 ? (
-        <p className="placeholder">Немає подій у цій категорії.</p>
+        <Text tone="muted">Немає подій у цій категорії.</Text>
       ) : (
-        <ul className="event-list__items">
+        <List maxHeight="md">
           {filteredEvents.map((event) => (
-            <li key={event.id}>
-              <button
-                type="button"
-                className={`event-list__item ${event.id === selectedId ? 'event-list__item--selected' : ''}`}
-                onClick={() => onSelect(event.id)}
-              >
-                <span className="event-list__mag">M {event.properties.mag.toFixed(1)}</span>
-                <span className="event-list__place">{event.properties.place}</span>
-                <span className="event-list__time">{formatDateTime(event.properties.time)}</span>
-              </button>
-            </li>
+            <ListItem
+              key={event.id}
+              title={`M ${event.properties.mag.toFixed(1)}`}
+              description={event.properties.place ?? '—'}
+              meta={formatDateTime(event.properties.time)}
+              selected={event.id === selectedId}
+              onClick={() => onSelect(event.id)}
+            />
           ))}
-        </ul>
+        </List>
       )}
-    </div>
+    </Stack>
   );
 }
 

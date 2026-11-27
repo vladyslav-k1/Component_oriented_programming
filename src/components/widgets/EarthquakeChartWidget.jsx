@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DataChart from '../charts/DataChart';
-import SegmentedControl from '../ui/SegmentedControl';
+import { DataChart, SegmentedControl, Stack } from '../../design-system';
 import {
-  CHART_COLORS,
   CHART_METRICS,
   CHART_TYPES,
   buildMagnitudeDistribution,
@@ -15,13 +13,11 @@ import {
   selectChartMetric,
   selectChartType,
 } from '../../store/slices/chartSlice';
-import { selectThemeMode } from '../../store/slices/themeSlice';
 
 function EarthquakeChartWidget({ events, timeRange }) {
   const dispatch = useDispatch();
   const chartType = useSelector(selectChartType);
   const metric = useSelector(selectChartMetric);
-  const themeMode = useSelector(selectThemeMode);
 
   const data = useMemo(
     () =>
@@ -32,8 +28,8 @@ function EarthquakeChartWidget({ events, timeRange }) {
   );
 
   return (
-    <div className="chart-widget">
-      <div className="chart-widget__controls">
+    <Stack gap="3">
+      <Stack direction="row" justify="between" gap="3" wrap>
         <SegmentedControl
           label="Метрика графіка"
           options={CHART_METRICS}
@@ -46,17 +42,9 @@ function EarthquakeChartWidget({ events, timeRange }) {
           value={chartType}
           onChange={(value) => dispatch(chartTypeChanged(value))}
         />
-      </div>
-
-      <DataChart
-        data={data}
-        type={chartType}
-        xKey="label"
-        yKey="count"
-        valueLabel="Кількість подій"
-        colors={CHART_COLORS[themeMode]}
-      />
-    </div>
+      </Stack>
+      <DataChart data={data} type={chartType} xKey="label" yKey="count" valueLabel="Кількість подій" height="md" />
+    </Stack>
   );
 }
 
