@@ -1,122 +1,82 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import DashboardLayout from './components/layout/DashboardLayout';
+import Widget from './components/layout/Widget';
+import KpiCard from './components/widgets/KpiCard';
+import MagnitudeCounter from './components/widgets/MagnitudeCounter';
+import EarthquakeList from './components/widgets/EarthquakeList';
+import EarthquakeDetails from './components/widgets/EarthquakeDetails';
+import { mockEarthquakeCollection, mockPreviousDayStats } from './data/earthquakes.mock';
+import {
+  getEventsLastDay,
+  getMaxMagnitude,
+  getAverageDepth,
+  formatChange,
+} from './utils/earthquakeUtils';
+
+const events = mockEarthquakeCollection.features;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedId, setSelectedId] = useState(null);
+
+  const selectedEvent = events.find((event) => event.id === selectedId) ?? null;
+
+  const lastDayEvents = getEventsLastDay(events);
+  const count = lastDayEvents.length;
+  const maxMagnitude = getMaxMagnitude(lastDayEvents);
+  const averageDepth = getAverageDepth(lastDayEvents);
+
+  const kpis = [
+    {
+      id: 'count',
+      title: 'Події за добу',
+      value: count,
+      change: formatChange(count, mockPreviousDayStats.count),
+    },
+    {
+      id: 'max-mag',
+      title: 'Макс. магнітуда',
+      value: maxMagnitude.toFixed(1),
+      unit: 'M',
+      change: formatChange(maxMagnitude, mockPreviousDayStats.maxMagnitude),
+    },
+    {
+      id: 'avg-depth',
+      title: 'Середня глибина',
+      value: averageDepth.toFixed(1),
+      unit: 'км',
+      change: formatChange(averageDepth, mockPreviousDayStats.averageDepth),
+    },
+  ];
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <DashboardLayout title="Землетруси" subtitle="Дані USGS (mock) за останню добу">
+      <div className="kpi-row">
+        {kpis.map((kpi) => (
+          <KpiCard
+            key={kpi.id}
+            title={kpi.title}
+            value={kpi.value}
+            unit={kpi.unit}
+            change={kpi.change}
+          />
+        ))}
+      </div>
 
-      <div className="ticks"></div>
+      <div className="widgets-grid">
+        <Widget title="Поріг магнітуди">
+          <MagnitudeCounter events={events} />
+        </Widget>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <Widget title="Події">
+          <EarthquakeList events={events} selectedId={selectedId} onSelect={setSelectedId} />
+        </Widget>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <Widget title="Деталі події">
+          <EarthquakeDetails event={selectedEvent} />
+        </Widget>
+      </div>
+    </DashboardLayout>
+  );
 }
 
-export default App
+export default App;
