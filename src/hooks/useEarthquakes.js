@@ -1,36 +1,19 @@
-import { useEffect, useState } from 'react';
-import { fetchEarthquakes } from '../api/earthquakesApi';
+import { useMemo } from 'react';
+import { useFetch } from './useFetch';
+import { parseEarthquakesResponse } from '../api/earthquakesApi';
 
-export function useEarthquakes() {
-  const [events, setEvents] = useState([]);
-  const [generatedAt, setGeneratedAt] = useState(null);
-  const [status, setStatus] = useState('loading');
-  const [error, setError] = useState(null);
-  const [reloadToken, setReloadToken] = useState(0);
+const EMPTY_EVENTS = [];
 
-  useEffect(() => {
-    const controller = new AbortController();
+export function useEarthquakes(url) {
+  const { data, loading, error, refetch } = useFetch(url);
 
-    fetchEarthquakes(controller.signal)
-      .then((result) => {
-        setEvents(result.events);
-        setGeneratedAt(result.generatedAt);
-        setStatus('success');
-      })
-      .catch((err) => {
-        if (err.name === 'AbortError') return;
-        setError(err.message);
-        setStatus('error');
-      });
+  const parsed = useMemo(() => (data ? parseEarthquakesResponse(data) : null), [data]);
 
-    return () => controller.abort();
-  }, [reloadToken]);
-
-  const reload = () => {
-    setStatus('loading');
-    setError(null);
-    setReloadToken((token) => token + 1);
+  return {
+    events: parsed?.events ?? EMPTY_EVENTS,
+    generatedAt: parsed?.generatedAt ?? null,
+    loading,
+    error,
+    refetch,
   };
-
-  return { events, generatedAt, status, error, reload };
 }

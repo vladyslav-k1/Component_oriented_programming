@@ -1,5 +1,12 @@
-function RequestState({ status, error, isEmpty, onRetry, children }) {
-  if (status === 'loading') {
+function RequestState({
+  loading,
+  error,
+  isEmpty,
+  emptyMessage = 'Даних немає.',
+  onRetry,
+  children,
+}) {
+  if (loading) {
     return (
       <div className="request-state">
         <span className="spinner" aria-hidden="true" />
@@ -8,7 +15,7 @@ function RequestState({ status, error, isEmpty, onRetry, children }) {
     );
   }
 
-  if (status === 'error') {
+  if (error) {
     return (
       <div className="request-state request-state--error" role="alert">
         <p>Не вдалося завантажити дані: {error}</p>
@@ -22,7 +29,7 @@ function RequestState({ status, error, isEmpty, onRetry, children }) {
   if (isEmpty) {
     return (
       <div className="request-state">
-        <p>За останню добу землетрусів не зафіксовано.</p>
+        <p>{emptyMessage}</p>
       </div>
     );
   }
