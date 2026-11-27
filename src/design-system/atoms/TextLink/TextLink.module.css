@@ -1,0 +1,19 @@
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-color-focus-ring);
+  outline-offset: var(--ds-focus-ring-offset);
+  border-radius: var(--ds-radius-sm);
+}
+
+.tone-primary { color: var(--ds-color-primary); }
+.tone-default { color: var(--ds-color-text); }
+.weight-medium { font-weight: var(--ds-font-weight-medium); }
+.weight-bold { font-weight: var(--ds-font-weight-bold); }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import Toggle from '../ui/Toggle';
+import { DescriptionList, Stack, Switch, Text, TextLink } from '../../design-system';
 import { ROUTES } from '../../routes';
 import { formatDateTime, kmToMiles } from '../../utils/earthquakeUtils';
 
@@ -8,7 +8,7 @@ function EarthquakeDetails({ event }) {
   const [useMiles, setUseMiles] = useState(false);
 
   if (!event) {
-    return <p className="placeholder">Оберіть подію у списку, щоб побачити деталі.</p>;
+    return <Text tone="muted">Оберіть подію у списку, щоб побачити деталі.</Text>;
   }
 
   const { mag, place, time, url, tsunami } = event.properties;
@@ -18,35 +18,24 @@ function EarthquakeDetails({ event }) {
     ? `${kmToMiles(depthKm).toFixed(1)} mi`
     : `${depthKm.toFixed(1)} км`;
 
+  const items = [
+    { label: 'Регіон', value: place ?? '—' },
+    { label: 'Магнітуда', value: `M ${mag.toFixed(1)}` },
+    { label: 'Глибина', value: depthText },
+    { label: 'Координати', value: `${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°` },
+    { label: 'Час', value: formatDateTime(time) },
+  ];
+
   return (
-    <div className="details">
-      <Toggle checked={useMiles} onChange={setUseMiles} offLabel="км" onLabel="милі" />
-
-      <dl className="details__list">
-        <dt>Регіон</dt>
-        <dd>{place}</dd>
-
-        <dt>Магнітуда</dt>
-        <dd>M {mag.toFixed(1)}</dd>
-
-        <dt>Глибина</dt>
-        <dd>{depthText}</dd>
-
-        <dt>Координати</dt>
-        <dd>{latitude.toFixed(2)}°, {longitude.toFixed(2)}°</dd>
-
-        <dt>Час</dt>
-        <dd>{formatDateTime(time)}</dd>
-      </dl>
-
-      {tsunami === 1 && <p className="details__warning">⚠ Можлива загроза цунамі</p>}
-
-      <Link to={ROUTES.earthquake(event.id)} className="details__more">
-        Відкрити сторінку події →
-      </Link>
-
-      <a href={url} target="_blank" rel="noreferrer">Сторінка події на USGS</a>
-    </div>
+    <Stack gap="3">
+      <Switch label="Одиниці глибини" checked={useMiles} onChange={setUseMiles} offLabel="км" onLabel="милі" />
+      <DescriptionList items={items} />
+      {tsunami === 1 && <Text tone="warning" weight="semibold">⚠ Можлива загроза цунамі</Text>}
+      <Stack direction="row" gap="3" wrap>
+        <TextLink as={Link} to={ROUTES.earthquake(event.id)}>Відкрити сторінку події →</TextLink>
+        <TextLink href={url} target="_blank" rel="noreferrer">Сторінка події на USGS ↗</TextLink>
+      </Stack>
+    </Stack>
   );
 }
 

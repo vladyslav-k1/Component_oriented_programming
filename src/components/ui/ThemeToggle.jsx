@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Toggle from './Toggle';
+import { Switch } from '../../design-system';
 import { selectThemeMode, themeChanged } from '../../store/slices/themeSlice';
 
 function ThemeToggle() {
@@ -7,7 +7,8 @@ function ThemeToggle() {
   const mode = useSelector(selectThemeMode);
 
   return (
-    <Toggle
+    <Switch
+      label="Тема оформлення"
       checked={mode === 'dark'}
       onChange={(isDark) => dispatch(themeChanged(isDark ? 'dark' : 'light'))}
       offLabel="Світла"

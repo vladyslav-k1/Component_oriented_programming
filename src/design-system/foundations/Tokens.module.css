@@ -1,0 +1,23 @@
+.swatch {
+  height: var(--ds-control-height-lg);
+  border: var(--ds-border-width) solid var(--ds-color-border);
+  border-radius: var(--ds-radius-md);
+}
+
+.spaceBar {
+  height: var(--ds-space-3);
+  background: var(--ds-color-primary);
+  border-radius: var(--ds-radius-sm);
+}
+
+.radiusBox {
+  width: var(--ds-control-height-lg);
+  height: var(--ds-control-height-lg);
+  border: var(--ds-border-width) solid var(--ds-color-border);
+  background: var(--ds-color-primary-subtle);
+}
+
+.typeSample {
+  margin: 0;
+  color: var(--ds-color-text);
+}

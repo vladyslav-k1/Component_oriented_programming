@@ -1,0 +1,17 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-normal);
+  background: var(--ds-color-bg);
+  color: var(--ds-color-text);
+  transition:
+    background-color var(--ds-duration-normal),
+    color var(--ds-duration-normal);
+}

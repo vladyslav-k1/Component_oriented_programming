@@ -1,0 +1,173 @@
+:root {
+  color-scheme: light;
+
+  /* ---------- Primitives: palette ---------- */
+  --ds-gray-0: #ffffff;
+  --ds-gray-50: #f9fafb;
+  --ds-gray-100: #f3f4f6;
+  --ds-gray-200: #e5e7eb;
+  --ds-gray-300: #d1d5db;
+  --ds-gray-500: #6b7280;
+  --ds-gray-800: #1f2937;
+  --ds-slate-400: #94a3b8;
+  --ds-slate-600: #475569;
+  --ds-slate-700: #334155;
+  --ds-slate-750: #273449;
+  --ds-slate-800: #1e293b;
+  --ds-slate-900: #0f172a;
+  --ds-blue-50: #eff6ff;
+  --ds-blue-200: #bfdbfe;
+  --ds-blue-300: #93c5fd;
+  --ds-blue-400: #60a5fa;
+  --ds-blue-600: #2563eb;
+  --ds-blue-700: #1d4ed8;
+  --ds-blue-900: #1e3a5f;
+  --ds-red-50: #fef2f2;
+  --ds-red-300: #fca5a5;
+  --ds-red-400: #f87171;
+  --ds-red-600: #dc2626;
+  --ds-red-700: #b91c1c;
+  --ds-red-900: #7f1d1d;
+  --ds-green-50: #ecfdf5;
+  --ds-green-300: #6ee7b7;
+  --ds-green-400: #4ade80;
+  --ds-green-600: #16a34a;
+  --ds-green-700: #047857;
+  --ds-green-900: #064e3b;
+  --ds-amber-50: #fffbeb;
+  --ds-amber-300: #fcd34d;
+  --ds-amber-400: #fbbf24;
+  --ds-amber-500: #f59e0b;
+  --ds-amber-700: #b45309;
+  --ds-amber-900: #78350f;
+  --ds-black-alpha-8: rgba(0, 0, 0, 0.08);
+  --ds-black-alpha-50: rgba(0, 0, 0, 0.5);
+
+  /* ---------- Typography ---------- */
+  --ds-font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ds-font-size-xs: 0.75rem;
+  --ds-font-size-sm: 0.875rem;
+  --ds-font-size-md: 1rem;
+  --ds-font-size-lg: 1.125rem;
+  --ds-font-size-xl: 1.5rem;
+  --ds-font-size-2xl: 2rem;
+  --ds-font-size-3xl: 3rem;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+  --ds-line-height-tight: 1.2;
+  --ds-line-height-normal: 1.5;
+
+  /* ---------- Spacing (4px scale) ---------- */
+  --ds-space-0: 0;
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.5rem;
+  --ds-space-6: 2rem;
+  --ds-space-7: 3rem;
+
+  /* ---------- Radii, borders, focus ---------- */
+  --ds-radius-sm: 0.375rem;
+  --ds-radius-md: 0.5rem;
+  --ds-radius-lg: 0.75rem;
+  --ds-radius-full: 9999px;
+  --ds-border-width: 1px;
+  --ds-border-width-thick: 0.25rem;
+  --ds-focus-ring-width: 2px;
+  --ds-focus-ring-offset: 2px;
+  --ds-opacity-disabled: 0.5;
+
+  /* ---------- Sizes ---------- */
+  --ds-control-height-sm: 2rem;
+  --ds-control-height-md: 2.375rem;
+  --ds-control-height-lg: 2.75rem;
+  --ds-size-spinner-sm: 1rem;
+  --ds-size-spinner-md: 1.5rem;
+  --ds-size-spinner-lg: 2.25rem;
+  --ds-size-badge-min: 2.5rem;
+  --ds-size-table-icon-column: 2.5rem;
+  --ds-switch-width: 2.75rem;
+  --ds-switch-height: 1.5rem;
+  --ds-switch-thumb: 1.125rem;
+  --ds-switch-offset: 0.1875rem;
+  --ds-scroll-height-sm: 15rem;
+  --ds-scroll-height-md: 22.5rem;
+  --ds-scroll-height-lg: 30rem;
+  --ds-chart-height-sm: 12.5rem;
+  --ds-chart-height-md: 18.75rem;
+  --ds-chart-height-lg: 25rem;
+  --ds-grid-min-sm: 11.25rem;
+  --ds-grid-min-md: 18.75rem;
+  --ds-grid-min-lg: 20rem;
+  --ds-container-max: 75rem;
+
+  /* ---------- Motion & layers ---------- */
+  --ds-duration-fast: 150ms;
+  --ds-duration-normal: 200ms;
+  --ds-duration-spin: 0.8s;
+  --ds-z-sticky: 1;
+
+  /* ---------- Semantic: light ---------- */
+  --ds-color-bg: var(--ds-gray-100);
+  --ds-color-surface: var(--ds-gray-0);
+  --ds-color-surface-muted: var(--ds-gray-50);
+  --ds-color-text: var(--ds-gray-800);
+  --ds-color-text-muted: var(--ds-gray-500);
+  --ds-color-on-accent: var(--ds-gray-0);
+  --ds-color-border: var(--ds-gray-300);
+  --ds-color-border-subtle: var(--ds-gray-200);
+  --ds-color-primary: var(--ds-blue-600);
+  --ds-color-primary-hover: var(--ds-blue-700);
+  --ds-color-primary-subtle: var(--ds-blue-50);
+  --ds-color-focus-ring: var(--ds-blue-200);
+  --ds-color-danger: var(--ds-red-600);
+  --ds-color-danger-strong: var(--ds-red-700);
+  --ds-color-danger-subtle: var(--ds-red-50);
+  --ds-color-success: var(--ds-green-600);
+  --ds-color-success-strong: var(--ds-green-700);
+  --ds-color-success-subtle: var(--ds-green-50);
+  --ds-color-warning: var(--ds-amber-700);
+  --ds-color-warning-strong: var(--ds-amber-700);
+  --ds-color-warning-subtle: var(--ds-amber-50);
+  --ds-color-favorite: var(--ds-amber-500);
+  --ds-color-switch-thumb: var(--ds-gray-0);
+  --ds-color-chart-1: var(--ds-blue-600);
+  --ds-color-chart-grid: var(--ds-gray-200);
+  --ds-color-chart-axis: var(--ds-gray-500);
+  --ds-shadow-card: 0 1px 3px var(--ds-black-alpha-8);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --ds-color-bg: var(--ds-slate-900);
+  --ds-color-surface: var(--ds-slate-800);
+  --ds-color-surface-muted: var(--ds-slate-750);
+  --ds-color-text: var(--ds-gray-200);
+  --ds-color-text-muted: var(--ds-slate-400);
+  --ds-color-on-accent: var(--ds-slate-900);
+  --ds-color-border: var(--ds-slate-600);
+  --ds-color-border-subtle: var(--ds-slate-700);
+  --ds-color-primary: var(--ds-blue-400);
+  --ds-color-primary-hover: var(--ds-blue-300);
+  --ds-color-primary-subtle: var(--ds-blue-900);
+  --ds-color-focus-ring: var(--ds-blue-700);
+  --ds-color-danger: var(--ds-red-400);
+  --ds-color-danger-strong: var(--ds-red-300);
+  --ds-color-danger-subtle: var(--ds-red-900);
+  --ds-color-success: var(--ds-green-400);
+  --ds-color-success-strong: var(--ds-green-300);
+  --ds-color-success-subtle: var(--ds-green-900);
+  --ds-color-warning: var(--ds-amber-400);
+  --ds-color-warning-strong: var(--ds-amber-300);
+  --ds-color-warning-subtle: var(--ds-amber-900);
+  --ds-color-favorite: var(--ds-amber-400);
+  --ds-color-switch-thumb: var(--ds-gray-200);
+  --ds-color-chart-1: var(--ds-blue-400);
+  --ds-color-chart-grid: var(--ds-slate-700);
+  --ds-color-chart-axis: var(--ds-slate-400);
+  --ds-shadow-card: 0 1px 3px var(--ds-black-alpha-50);
+}

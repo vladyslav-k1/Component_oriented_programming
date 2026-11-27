@@ -1,0 +1,11 @@
+.chart {
+  width: 100%;
+}
+
+.height-sm { height: var(--ds-chart-height-sm); }
+.height-md { height: var(--ds-chart-height-md); }
+.height-lg { height: var(--ds-chart-height-lg); }
+
+.chart :global(.recharts-cartesian-axis-tick-value) {
+  font-size: var(--ds-font-size-xs);
+}

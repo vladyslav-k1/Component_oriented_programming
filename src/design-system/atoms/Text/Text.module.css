@@ -1,0 +1,19 @@
+.text { margin: 0; }
+
+.size-xs { font-size: var(--ds-font-size-xs); }
+.size-sm { font-size: var(--ds-font-size-sm); }
+.size-md { font-size: var(--ds-font-size-md); }
+.size-lg { font-size: var(--ds-font-size-lg); }
+.size-xl { font-size: var(--ds-font-size-xl); }
+
+.tone-default { color: var(--ds-color-text); }
+.tone-muted { color: var(--ds-color-text-muted); }
+.tone-primary { color: var(--ds-color-primary); }
+.tone-success { color: var(--ds-color-success); }
+.tone-warning { color: var(--ds-color-warning); }
+.tone-danger { color: var(--ds-color-danger); }
+
+.weight-regular { font-weight: var(--ds-font-weight-regular); }
+.weight-medium { font-weight: var(--ds-font-weight-medium); }
+.weight-semibold { font-weight: var(--ds-font-weight-semibold); }
+.weight-bold { font-weight: var(--ds-font-weight-bold); }

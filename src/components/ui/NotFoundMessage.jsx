@@ -1,15 +1,19 @@
 import { Link } from 'react-router';
+import { StatusMessage, TextLink } from '../../design-system';
 import { ROUTES } from '../../routes';
 
 function NotFoundMessage({ message }) {
   return (
-    <div className="request-state" role="status">
-      <p className="not-found__code">404</p>
-      <p>{message}</p>
-      <Link to={ROUTES.home} className="back-link">
-        ← Повернутися до дашборду
-      </Link>
-    </div>
+    <StatusMessage
+      variant="empty"
+      title="404"
+      message={message}
+      action={
+        <TextLink as={Link} to={ROUTES.home}>
+          ← Повернутися до дашборду
+        </TextLink>
+      }
+    />
   );
 }
 
