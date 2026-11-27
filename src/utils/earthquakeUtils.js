@@ -43,3 +43,39 @@ export function formatDateTime(timestamp) {
 export function kmToMiles(km) {
   return km * KM_TO_MILES;
 }
+
+const HALF_DAY_MS = 12 * 60 * 60 * 1000;
+
+export function buildKpis(events, generatedAt) {
+  const now = generatedAt ?? Date.now();
+  const dayEvents = getEventsLastDay(events, now);
+  const recent = dayEvents.filter((event) => now - event.properties.time <= HALF_DAY_MS);
+  const previous = dayEvents.filter((event) => now - event.properties.time > HALF_DAY_MS);
+  const changeLabel = 'vs попередні 12 год';
+
+  return [
+    {
+      id: 'count',
+      title: 'Події за добу',
+      value: dayEvents.length,
+      change: formatChange(recent.length, previous.length),
+      changeLabel,
+    },
+    {
+      id: 'max-mag',
+      title: 'Макс. магнітуда',
+      value: getMaxMagnitude(dayEvents).toFixed(1),
+      unit: 'M',
+      change: formatChange(getMaxMagnitude(recent), getMaxMagnitude(previous)),
+      changeLabel,
+    },
+    {
+      id: 'avg-depth',
+      title: 'Середня глибина',
+      value: getAverageDepth(dayEvents).toFixed(1),
+      unit: 'км',
+      change: formatChange(getAverageDepth(recent), getAverageDepth(previous)),
+      changeLabel,
+    },
+  ];
+}
