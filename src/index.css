@@ -360,3 +360,62 @@ button:disabled {
   background: #fef2f2;
   color: #b91c1c;
 }
+
+/* ---------- Filters ---------- */
+.filters-section {
+  margin-bottom: 16px;
+}
+
+.filter-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 16px;
+  align-items: start;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.form-field input,
+.form-field select {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font: inherit;
+  background: #fff;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+.form-field input[aria-invalid='true'] {
+  border-color: #dc2626;
+}
+
+.form-field__error {
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+.filter-panel__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-panel__pending {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
